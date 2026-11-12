@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunny Hostel — солнечный хостел для путешественников</title>
+<meta name="description" content="Sunny Hostel — уютный и светлый хостел: чистые комнаты, быстрый Wi‑Fi, общая кухня и тёплая атмосфера. Забронируйте место онлайн.">
+<meta property="og:title" content="Sunny Hostel — солнечный хостел">
+<meta property="og:description" content="Чистые комнаты, быстрый Wi‑Fi, общая кухня и тёплая атмосфера.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FFB627">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='26' fill='%23FFB627'/%3E%3Cg stroke='%23FFB627' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M50 6v10M50 84v10M6 50h10M84 50h10M19 19l7 7M74 74l7 7M19 81l7-7M74 26l7-7'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sun: #FFB627;
+  --sun-deep: #F28C0F;
+  --coral: #FF6B4A;
+  --ink: #2A1D0E;
+  --ink-soft: #6B5A45;
+  --cream: #FFF8EA;
+  --sand: #FBEBCB;
+  --card: #FFFFFF;
+  --line: rgba(42, 29, 14, .12);
+  --radius: 22px;
+  --shadow: 0 12px 34px rgba(160, 96, 10, .14);
+  --display: "Unbounded", "Trebuchet MS", "Segoe UI", sans-serif;
+  --body: "Manrope", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  margin: 0;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+h3 { font-size: 1.05rem; }
+p { margin: 0; }
+.wrap { width: min(1140px, 100% - 32px); margin-inline: auto; }
+section { padding: clamp(56px, 9vw, 104px) 0; }
+.eyebrow {
+  display: inline-block; font-weight: 700; font-size: .78rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--sun-deep); margin-bottom: 14px;
+}
+.lead { color: var(--ink-soft); max-width: 60ch; margin-top: 14px; }
+.section-head { margin-bottom: clamp(28px, 5vw, 48px); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 26px; border-radius: 999px; border: 2px solid transparent;
+  font: 700 1rem var(--body); text-decoration: none; cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--coral); outline-offset: 3px;
+}
+.btn-primary { background: var(--ink); color: #fff; box-shadow: 0 8px 20px rgba(42, 29, 14, .25); }
+.btn-ghost { border-color: var(--ink); color: var(--ink); background: transparent; }
+.btn-sun { background: var(--sun); color: var(--ink); box-shadow: 0 8px 20px rgba(242, 140, 15, .35); }
+
+/* Header */
+header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 248, 234, .88); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+.logo { display: flex; align-items: center; gap: 10px; font: 700 1.05rem var(--display); text-decoration: none; }
+.logo svg { width: 34px; height: 34px; }
+.nav-links { display: flex; align-items: center; gap: 26px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { text-decoration: none; font-weight: 600; font-size: .95rem; }
+.nav-links a:not(.btn):hover { color: var(--sun-deep); }
+.nav-links .btn { padding: 10px 20px; font-size: .92rem; }
+.burger {
+  display: none; width: 44px; height: 44px; border: 0; background: none; cursor: pointer; padding: 10px;
+}
+.burger span { display: block; height: 2.5px; background: var(--ink); border-radius: 2px; margin: 5px 0; transition: .2s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+/* Hero */
+.hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, #FFE08A 0%, #FFD071 38%, var(--cream) 100%);
+  padding: clamp(48px, 8vw, 96px) 0 0;
+}
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 32px; align-items: center; }
+.hero h1 { font-size: clamp(2.1rem, 6.2vw, 4.2rem); }
+.hero h1 em { font-style: normal; color: var(--coral); }
+.hero p.lead { font-size: 1.12rem; color: #5A4428; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; padding: 0; list-style: none; }
+.hero-tags li {
+  background: rgba(255, 255, 255, .7); border: 1px solid rgba(42, 29, 14, .1);
+  padding: 7px 14px; border-radius: 999px; font-size: .88rem; font-weight: 600;
+}
+.hero-art { position: relative; min-height: 340px; }
+.hero-art svg { width: 100%; height: auto; }
+.sun-rays { transform-origin: 300px 190px; animation: spin 60s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .sun-rays { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Features */
+.grid { display: grid; gap: 20px; }
+.features { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.card {
+  background: var(--card); border-radius: var(--radius); padding: 28px;
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+}
+.icon {
+  width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center;
+  background: var(--sand); margin-bottom: 18px;
+}
+.icon svg { width: 26px; height: 26px; stroke: var(--sun-deep); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.card p { color: var(--ink-soft); margin-top: 8px; font-size: .97rem; }
+
+/* Rooms */
+#rooms { background: var(--sand); }
+.rooms { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.room { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.room-art { height: 170px; position: relative; }
+.room-art svg { width: 100%; height: 100%; }
+.room-body { padding: 24px 26px 28px; display: flex; flex-direction: column; flex: 1; }
+.room ul { list-style: none; padding: 0; margin: 14px 0 22px; color: var(--ink-soft); font-size: .95rem; }
+.room li { padding-left: 26px; position: relative; margin: 6px 0; }
+.room li::before {
+  content: ""; position: absolute; left: 0; top: .45em; width: 14px; height: 8px;
+  border-left: 2.5px solid var(--sun-deep); border-bottom: 2.5px solid var(--sun-deep);
+  transform: rotate(-45deg) scale(.8);
+}
+.room-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.price { font-weight: 700; }
+.price small { display: block; font-weight: 500; color: var(--ink-soft); font-size: .8rem; }
+.badge {
+  position: absolute; top: 14px; left: 14px; background: var(--ink); color: #fff;
+  font-size: .75rem; font-weight: 700; padding: 5px 12px; border-radius: 999px;
+}
+
+/* Amenities */
+.amenities { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; list-style: none; padding: 0; margin: 0; }
+.amenities li {
+  display: flex; align-items: center; gap: 12px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 16px; padding: 14px 18px; font-weight: 600; font-size: .95rem;
+}
+.amenities li::before {
+  content: ""; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--sun);
+  box-shadow: 0 0 0 5px rgba(255, 182, 39, .25);
+}
+
+/* Booking */
+#booking { background: var(--ink); color: #fff; }
+#booking .eyebrow { color: var(--sun); }
+#booking .lead { color: rgba(255, 255, 255, .72); }
+.booking-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.contact-list { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 16px; }
+.contact-list span { display: block; font-size: .8rem; color: rgba(255, 255, 255, .55); text-transform: uppercase; letter-spacing: .1em; }
+.contact-list a, .contact-list b { font-weight: 700; font-size: 1.08rem; text-decoration: none; }
+.contact-list a:hover { color: var(--sun); }
+form { background: #fff; color: var(--ink); border-radius: var(--radius); padding: clamp(22px, 4vw, 34px); display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+.field { display: grid; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+label { font-weight: 700; font-size: .86rem; }
+input, select {
+  width: 100%; min-height: 48px; padding: 10px 14px; border-radius: 12px;
+  border: 1.5px solid rgba(42, 29, 14, .22); background: #fff; color: var(--ink); font: 500 1rem var(--body);
+}
+form .btn { grid-column: 1 / -1; width: 100%; }
+.form-note { grid-column: 1 / -1; font-size: .84rem; color: var(--ink-soft); text-align: center; }
+.form-msg { grid-column: 1 / -1; font-weight: 700; color: #B3261E; font-size: .92rem; }
+.form-msg:empty { display: none; }
+
+/* FAQ */
+.faq { max-width: 800px; }
+details { border-bottom: 1px solid var(--line); }
+summary {
+  cursor: pointer; list-style: none; padding: 20px 40px 20px 0; position: relative;
+  font-weight: 700; font-size: 1.05rem;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+  font-size: 1.6rem; font-weight: 400; color: var(--sun-deep); transition: transform .2s;
+}
+details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+details p { padding: 0 0 22px; color: var(--ink-soft); max-width: 68ch; }
+
+/* Footer */
+footer { background: var(--sand); padding: 36px 0; font-size: .9rem; color: var(--ink-soft); }
+.foot { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; }
+
+/* Mobile */
+@media (max-width: 860px) {
+  .burger { display: block; }
+  .nav-links {
+    position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--cream); border-bottom: 1px solid var(--line); padding: 8px 16px 18px; display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a:not(.btn) { display: block; padding: 13px 4px; border-bottom: 1px solid var(--line); }
+  .nav-links .btn { margin-top: 14px; padding: 13px 20px; }
+  .hero-grid, .booking-grid { grid-template-columns: 1fr; }
+  .hero-art { min-height: 0; margin-top: 8px; }
+}
+@media (max-width: 520px) {
+  form { grid-template-columns: 1fr; }
+  .hero-cta .btn { flex: 1 1 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Sunny Hostel — на главную">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="24" fill="#FFB627"/><g stroke="#F28C0F" stroke-width="7" stroke-linecap="round"><path d="M50 8v10M50 82v10M8 50h10M82 50h10M20 20l7 7M73 73l7 7M20 80l7-7M73 27l7-7"/></g></svg>
+      Sunny Hostel
+    </a>
+    <button class="burger" aria-label="Меню" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="menu">
+      <li><a href="#about">О хостеле</a></li>
+      <li><a href="#rooms">Комнаты</a></li>
+      <li><a href="#amenities">Удобства</a></li>
+      <li><a href="#faq">Вопросы</a></li>
+      <li><a class="btn btn-primary" href="#booking">Забронировать</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Хостел для путешественников</span>
+        <h1>Место, где всегда <em>солнечно</em></h1>
+        <p class="lead">Sunny Hostel — светлые комнаты, удобные кровати и атмосфера, в которой легко знакомиться. Приезжайте на ночь, оставайтесь на неделю.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#booking">Забронировать место</a>
+          <a class="btn btn-ghost" href="#rooms">Смотреть комнаты</a>
+        </div>
+        <ul class="hero-tags">
+          <li>Быстрый Wi‑Fi</li>
+          <li>Общая кухня</li>
+          <li>Заселение 24/7</li>
+          <li>Личные шкафчики</li>
+        </ul>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 600 440">
+          <g class="sun-rays" stroke="#FFF3C4" stroke-width="10" stroke-linecap="round" opacity=".9">
+            <path d="M300 30v40M300 310v40M140 190h40M420 190h40M187 77l28 28M385 275l28 28M187 303l28-28M385 105l28-28"/>
+          </g>
+          <circle cx="300" cy="190" r="92" fill="#FFB627"/>
+          <circle cx="300" cy="190" r="70" fill="#FFC94D"/>
+          <path d="M0 360c80-50 150-50 230-10s150 40 220 0 110-30 150-10v100H0z" fill="#F9D78F"/>
+          <!-- дом -->
+          <g>
+            <path d="M170 262l130-88 130 88z" fill="#FF6B4A"/>
+            <rect x="190" y="262" width="220" height="150" rx="6" fill="#FFFDF7"/>
+            <rect x="278" y="330" width="44" height="82" rx="22 22 0 0" fill="#2A1D0E"/>
+            <circle cx="312" cy="374" r="3" fill="#FFB627"/>
+            <g fill="#FFD071" stroke="#2A1D0E" stroke-width="4">
+              <rect x="214" y="290" width="44" height="44" rx="6"/>
+              <rect x="342" y="290" width="44" height="44" rx="6"/>
+              <rect x="214" y="352" width="44" height="40" rx="6"/>
+              <rect x="342" y="352" width="44" height="40" rx="6"/>
+            </g>
+            <circle cx="300" cy="232" r="13" fill="#FFFDF7"/>
+          </g>
+          <!-- пальмы / кусты -->
+          <g fill="#3F8F5F">
+            <ellipse cx="120" cy="404" rx="56" ry="30"/>
+            <ellipse cx="490" cy="408" rx="64" ry="30"/>
+            <ellipse cx="545" cy="414" rx="40" ry="22" fill="#57A873"/>
+            <ellipse cx="70" cy="414" rx="40" ry="22" fill="#57A873"/>
+          </g>
+          <path d="M0 412h600v28H0z" fill="#FFF8EA"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Почему Sunny</span>
+        <h2>Как дома, только веселее</h2>
+        <p class="lead">Мы сделали хостел, в котором сами хотели бы остановиться: чисто, спокойно ночью и душевно днём.</p>
+      </div>
+      <div class="grid features">
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 18v-6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v6M3 18h18M3 18v2M21 18v2M7 9V6h10v3"/></svg></div>
+          <h3>Удобные кровати</h3>
+          <p>Ортопедические матрасы, шторки, розетка и лампа у каждого места.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4zM18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z"/></svg></div>
+          <h3>Чистота каждый день</h3>
+          <p>Ежедневная уборка, свежее бельё и полотенца к заселению.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+          <h3>Безопасность</h3>
+          <p>Личные шкафчики с замком, электронные ключи и администратор на месте.</p>
+        </article>
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0M14 20a4 4 0 0 1 7.5-2"/></svg></div>
+          <h3>Тёплая компания</h3>
+          <p>Общая гостиная, настольные игры и люди со всего мира за одним столом.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="rooms">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Комнаты</span>
+        <h2>Выберите свой формат</h2>
+        <p class="lead">От бюджетного места в общей комнате до отдельного номера для двоих.</p>
+      </div>
+      <div class="grid rooms">
+
+        <article class="card room">
+          <div class="room-art" style="background:#FFE3A3">
+            <svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <g fill="#F28C0F"><rect x="60" y="30" width="10" height="130"/><rect x="190" y="30" width="10" height="130"/><rect x="210" y="30" width="10" height="130"/><rect x="340" y="30" width="10" height="130"/></g>
+              <g fill="#fff"><rect x="70" y="50" width="120" height="26" rx="6"/><rect x="70" y="112" width="120" height="26" rx="6"/><rect x="220" y="50" width="120" height="26" rx="6"/><rect x="220" y="112" width="120" height="26" rx="6"/></g>
+              <g fill="#FF6B4A"><rect x="70" y="50" width="34" height="26" rx="6"/><rect x="70" y="112" width="34" height="26" rx="6"/><rect x="220" y="50" width="34" height="26" rx="6"/><rect x="220" y="112" width="34" height="26" rx="6"/></g>
+            </svg>
+          </div>
+          <div class="room-body">
+            <h3>Общая комната</h3>
+            <ul>
+              <li>6–8 мест, двухъярусные кровати</li>
+              <li>Шторка, розетка и лампа</li>
+              <li>Личный шкафчик с замком</li>
+            </ul>
+            <div class="room-foot">
+              <div class="price">Цена по запросу<small>за место / ночь</small></div>
+              <a class="btn btn-sun" href="#booking" data-room="Общая комната">Выбрать</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card room">
+          <div class="room-art" style="background:#FFD0C2">
+            <span class="badge">Только для девушек</span>
+            <svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <g fill="#C94A2E"><rect x="120" y="30" width="10" height="130"/><rect x="270" y="30" width="10" height="130"/></g>
+              <g fill="#fff"><rect x="130" y="50" width="140" height="26" rx="6"/><rect x="130" y="112" width="140" height="26" rx="6"/></g>
+              <g fill="#FFB627"><rect x="130" y="50" width="38" height="26" rx="6"/><rect x="130" y="112" width="38" height="26" rx="6"/></g>
+              <circle cx="330" cy="60" r="20" fill="#fff" opacity=".7"/>
+            </svg>
+          </div>
+          <div class="room-body">
+            <h3>Женская комната</h3>
+            <ul>
+              <li>4–6 мест, спокойная атмосфера</li>
+              <li>Зеркало и фен в комнате</li>
+              <li>Личный шкафчик с замком</li>
+            </ul>
+            <div class="room-foot">
+              <div class="price">Цена по запросу<small>за место / ночь</small></div>
+              <a class="btn btn-sun" href="#booking" data-room="Женская комната">Выбрать</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card room">
+          <div class="room-art" style="background:#CFE8D6">
+            <svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect x="90" y="60" width="220" height="24" rx="8" fill="#3F8F5F"/>
+              <rect x="90" y="82" width="220" height="50" rx="8" fill="#fff"/>
+              <rect x="104" y="72" width="80" height="26" rx="10" fill="#FFB627"/>
+              <rect x="216" y="72" width="80" height="26" rx="10" fill="#FFB627"/>
+              <g fill="#3F8F5F"><rect x="96" y="132" width="10" height="20"/><rect x="294" y="132" width="10" height="20"/></g>
+            </svg>
+          </div>
+          <div class="room-body">
+            <h3>Отдельный номер</h3>
+            <ul>
+              <li>Для одного или двоих</li>
+              <li>Двуспальная или две кровати</li>
+              <li>Тишина и личное пространство</li>
+            </ul>
+            <div class="room-foot">
+              <div class="price">Цена по запросу<small>за номер / ночь</small></div>
+              <a class="btn btn-sun" href="#booking" data-room="Отдельный номер">Выбрать</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="amenities">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Удобства</span>
+        <h2>Всё включено в стоимость</h2>
+      </div>
+      <ul class="amenities">
+        <li>Быстрый Wi‑Fi</li>
+        <li>Оборудованная кухня</li>
+        <li>Чай и кофе</li>
+        <li>Горячий душ</li>
+        <li>Постельное бельё</li>
+        <li>Стиральная машина</li>
+        <li>Гостиная и зона отдыха</li>
+        <li>Рабочие места</li>
+        <li>Камера хранения</li>
+        <li>Кондиционер и отопление</li>
+        <li>Фен и утюг</li>
+        <li>Советы по городу</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="booking">
+    <div class="wrap booking-grid">
+      <div>
+        <span class="eyebrow">Бронирование</span>
+        <h2>Оставьте заявку — ответим быстро</h2>
+        <p class="lead">Заполните форму, и заявка откроется в WhatsApp. Мы подтвердим наличие мест и цену.</p>
+        <ul class="contact-list">
+          <li><span>Телефон</span><a data-c="phone" href="#"></a></li>
+          <li><span>Почта</span><a data-c="email" href="#"></a></li>
+          <li><span>Адрес</span><b data-c="address"></b></li>
+          <li><span>Заселение / выезд</span><b>с 14:00 / до 12:00</b></li>
+        </ul>
+      </div>
+
+      <form id="bookingForm" novalidate>
+        <div class="field full">
+          <label for="name">Ваше имя</label>
+          <input id="name" name="name" autocomplete="name" required placeholder="Как к вам обращаться">
+        </div>
+        <div class="field">
+          <label for="checkin">Заезд</label>
+          <input id="checkin" name="checkin" type="date" required>
+        </div>
+        <div class="field">
+          <label for="checkout">Выезд</label>
+          <input id="checkout" name="checkout" type="date" required>
+        </div>
+        <div class="field">
+          <label for="room">Комната</label>
+          <select id="room" name="room">
+            <option>Общая комната</option>
+            <option>Женская комната</option>
+            <option>Отдельный номер</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="guests">Гостей</label>
+          <select id="guests" name="guests">
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
+          </select>
+        </div>
+        <p class="form-msg" id="formMsg" role="alert"></p>
+        <button class="btn btn-primary" type="submit">Отправить заявку в WhatsApp</button>
+        <p class="form-note">Без предоплаты. Отмена бесплатна.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap faq">
+      <div class="section-head">
+        <span class="eyebrow">Вопросы</span>
+        <h2>Частые вопросы</h2>
+      </div>
+      <details open>
+        <summary>Во сколько заселение и выезд?</summary>
+        <p>Заселение с 14:00, выезд до 12:00. Если приезжаете раньше или уезжаете позже — оставьте багаж в камере хранения.</p>
+      </details>
+      <details>
+        <summary>Можно ли приехать ночью?</summary>
+        <p>Да, администратор на месте круглосуточно. Просто предупредите нас о времени прибытия.</p>
+      </details>
+      <details>
+        <summary>Что нужно взять с собой?</summary>
+        <p>Только документ, удостоверяющий личность. Постельное бельё и полотенце мы выдаём при заселении.</p>
+      </details>
+      <details>
+        <summary>Есть ли тихие часы?</summary>
+        <p>Да, с 23:00 до 7:00 в комнатах тишина. Общаться в это время можно в гостиной.</p>
+      </details>
+      <details>
+        <summary>Как оплатить проживание?</summary>
+        <p>Оплата при заселении — наличными или картой. Предоплата для бронирования не требуется.</p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year"></span> Sunny Hostel</span>
+    <span data-c="address"></span>
+    <a href="#top">Наверх ↑</a>
+  </div>
+</footer>
+
+<script>
+// ───── Контакты: замените на настоящие ─────
+const CONFIG = {
+  phone: '+000 000 000 000',          // отображаемый номер
+  whatsapp: '000000000000',           // номер для WhatsApp, только цифры с кодом страны
+  email: 'hello@example.com',
+  address: 'Адрес хостела — укажите здесь'
+};
+
+document.querySelectorAll('[data-c]').forEach(el => {
+  const k = el.dataset.c;
+  el.textContent = CONFIG[k];
+  if (k === 'phone') el.href = 'tel:' + CONFIG.phone.replace(/[^\d+]/g, '');
+  if (k === 'email') el.href = 'mailto:' + CONFIG.email;
+});
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Мобильное меню
+const burger = document.querySelector('.burger');
+const menu = document.getElementById('menu');
+burger.addEventListener('click', () => {
+  const open = menu.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+});
+menu.addEventListener('click', e => {
+  if (e.target.closest('a')) { menu.classList.remove('open'); burger.setAttribute('aria-expanded', false); }
+});
+
+// Выбор комнаты из карточки
+document.querySelectorAll('[data-room]').forEach(a =>
+  a.addEventListener('click', () => { document.getElementById('room').value = a.dataset.room; })
+);
+
+// Даты: не раньше сегодняшнего дня, выезд позже заезда
+const iso = d => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+const checkin = document.getElementById('checkin');
+const checkout = document.getElementById('checkout');
+checkin.min = iso(new Date());
+checkout.min = iso(new Date(Date.now() + 864e5));
+checkin.addEventListener('change', () => {
+  if (!checkin.value) return;
+  const next = new Date(checkin.value); next.setDate(next.getDate() + 1);
+  checkout.min = next.toISOString().slice(0, 10);
+  if (!checkout.value || checkout.value <= checkin.value) checkout.value = checkout.min;
+});
+
+// Отправка заявки в WhatsApp
+const fmt = v => v.split('-').reverse().join('.');
+document.getElementById('bookingForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target, msg = document.getElementById('formMsg');
+  const name = f.name.value.trim();
+  if (!name) { msg.textContent = 'Укажите, пожалуйста, имя.'; f.name.focus(); return; }
+  if (!checkin.value || !checkout.value) { msg.textContent = 'Выберите даты заезда и выезда.'; return; }
+  if (checkout.value <= checkin.value) { msg.textContent = 'Дата выезда должна быть позже даты заезда.'; return; }
+  msg.textContent = '';
+  const text = `Здравствуйте! Хочу забронировать место в Sunny Hostel.\n` +
+    `Имя: ${name}\nЗаезд: ${fmt(checkin.value)}\nВыезд: ${fmt(checkout.value)}\n` +
+    `Комната: ${f.room.value}\nГостей: ${f.guests.value}`;
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+});
+</script>
+</body>
+</html>
